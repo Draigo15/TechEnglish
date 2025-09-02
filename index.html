@@ -10,6 +10,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1200&auto=format&fit=crop" />
   <meta name="theme-color" content="#0b63f6" />
+  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -33,7 +34,8 @@
     .container{max-width:1100px;margin:0 auto;padding:0 20px}
     .btn{display:inline-flex;align-items:center;gap:.6rem;border:1px solid transparent;padding:.9rem 1.2rem;border-radius:14px;font-weight:600;transition:all .2s ease;cursor:pointer}
     .btn.primary{background:var(--brand);box-shadow:var(--shadow-2)}
-    .btn.primary:hover{transform:translateY(-1px);filter:saturate(1.1)}
+  .btn.primary:hover{transform:translateY(-2px) scale(1.04);filter:saturate(1.1);box-shadow:0 12px 32px rgba(11,99,246,.45)}
+  .btn.ghost:hover{transform:translateY(-1px) scale(1.03);background:#181e2e;box-shadow:0 4px 16px rgba(35,197,94,.12)}
     .btn.ghost{border-color:#2a3245;background:#111524}
     .chip{display:inline-flex;align-items:center;gap:.5rem;background:#0f1322;border:1px solid #20263a;color:#b7c1d6;border-radius:999px;padding:.35rem .7rem;font-size:.78rem}
     header.nav{
@@ -74,7 +76,31 @@
 
     /* Showcase */
     .showcase{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .shot{border-radius:16px;overflow:hidden;border:1px solid #1b2242;background:#0f1426}
+    .shot{border-radius:16px;overflow:hidden;border:1px solid #1b2242;background:#0f1426;transition:transform .35s cubic-bezier(.4,1.4,.6,1), box-shadow .35s;}
+    .shot:hover, .shot:focus-within {
+      transform: scale(1.045) translateY(-6px);
+      box-shadow:0 12px 32px rgba(11,99,246,.18);
+      z-index:2;
+    }
+    .shot img {
+      transition: filter .35s, transform .35s;
+    }
+    .shot:hover img, .shot:focus-within img {
+      filter: brightness(1.08) saturate(1.1);
+      transform: scale(1.04);
+    }
+
+    /* Animaciones de aparición al hacer scroll */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px) scale(.98);
+      transition: opacity .7s cubic-bezier(.4,1.4,.6,1), transform .7s cubic-bezier(.4,1.4,.6,1);
+      will-change: opacity, transform;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
 
     /* Testimonials */
     .testimonials{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -86,6 +112,16 @@
     summary{cursor:pointer;font-weight:600}
 
     footer{border-top:1px solid rgba(255,255,255,.08);padding:30px 0 40px;color:#aeb9cf}
+
+    /* Animación para el toast */
+    .toast-anim {
+      animation: toastIn .5s cubic-bezier(.4,1.4,.6,1) both;
+    }
+    @keyframes toastIn {
+      0% { opacity: 0; transform: translateY(30px) scale(.95); }
+      80% { opacity: 1; transform: translateY(-4px) scale(1.04); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
 
     /* Responsive */
     @media (max-width: 900px){
@@ -103,25 +139,25 @@
   </style>
 </head>
 <body>
-  <!-- NAV -->
-  <header class="nav">
+  <header class="nav" role="banner">
     <div class="container nav-inner">
-      <a class="brand" href="#">
-        <div class="logo"><span>TE</span></div>
+      <a class="brand" href="#" aria-label="Inicio TechEnglish">
+        <div class="logo" aria-hidden="true"><span>TE</span></div>
         <span>TechEnglish</span>
       </a>
-      <nav class="menu" id="menu">
+      <nav class="menu" id="menu" role="navigation" aria-label="Menú principal">
         <a href="#caracteristicas">Características</a>
         <a href="#muestras">Muestras</a>
         <a href="#faq">FAQ</a>
         <a href="#descargar">Descargar</a>
       </nav>
-      <button class="mobile-toggle btn ghost" aria-label="Abrir menú" onclick="toggleMenu()">☰</button>
+      <button class="mobile-toggle btn ghost" aria-label="Abrir menú de navegación" onclick="toggleMenu()">☰</button>
     </div>
   </header>
 
+  <main>
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero" aria-label="Sección principal, presentación">
     <div class="container hero-grid">
       <div>
         <span class="chip">Inglés técnico para ingeniería</span>
@@ -131,19 +167,19 @@
           <a href="#descargar" class="btn primary">📲 Próximamente en Android</a>
           <a href="#features" class="btn ghost">Ver cómo funciona</a>
         </div>
-        <div class="cta" style="margin-top:18px">
+  <div class="cta" style="margin-top:18px" role="region" aria-label="Acceso anticipado">
           <div>
             <strong>¿Quieres acceso anticipado?</strong>
             <p style="margin:.2rem 0;color:#c3cde0">Únete a la lista de espera y recibe 3 módulos gratis al lanzamiento.</p>
           </div>
-          <form class="waitlist" onsubmit="return joinWaitlist(event)">
-            <input type="email" placeholder="tu@email.com" required style="background:#0c1122;border:1px solid #243055;color:#cfe2ff;padding:.8rem 1rem;border-radius:12px;outline:none;min-width:240px" />
-            <button class="btn primary" type="submit">Unirme</button>
+          <form class="waitlist" onsubmit="return joinWaitlist(event)" aria-label="Formulario lista de espera">
+            <input type="email" placeholder="tu@email.com" required aria-label="Correo electrónico" style="background:#0c1122;border:1px solid #243055;color:#cfe2ff;padding:.8rem 1rem;border-radius:12px;outline:none;min-width:240px" />
+            <button class="btn primary" type="submit" aria-label="Unirme a la lista de espera">Unirme</button>
           </form>
         </div>
       </div>
 
-      <div class="hero-card">
+  <div class="hero-card" aria-label="Vista previa de lección">
         <div class="phone">
           <div class="phone-header">
             <span>TechEnglish</span>
@@ -162,10 +198,10 @@
                   </ul>
                 </div>
                 <div>
-                  <audio controls style="width:100%">
+                  <audio controls style="width:100%" aria-label="Escuchar pronunciación de Server">
                     <source src="" type="audio/mpeg" />
                   </audio>
-                  <button class="btn ghost" style="width:100%;margin-top:8px">Practicar</button>
+                  <button class="btn ghost" style="width:100%;margin-top:8px" aria-label="Practicar pronunciación">Practicar</button>
                 </div>
               </div>
             </div>
@@ -173,7 +209,7 @@
             <div class="card" style="margin-top:12px">
               <strong>Frase útil</strong>
               <p style="margin:.2rem 0;color:#aeb9cf">The <b>server</b> is down due to a <b>network outage</b>.</p>
-              <button class="btn primary" style="width:100%">Quiz rápido</button>
+              <button class="btn primary" style="width:100%" aria-label="Iniciar quiz rápido">Quiz rápido</button>
             </div>
           </div>
         </div>
@@ -182,32 +218,32 @@
   </section>
 
   <!-- FEATURES -->
-  <section id="caracteristicas" class="section">
+  <section id="caracteristicas" class="section fade-in" aria-label="Características principales">
     <div class="container">
       <p class="kicker">¿Qué incluye?</p>
       <h2 style="margin:.2rem 0 1rem">Todo lo que necesitas para el inglés de tu carrera</h2>
-      <div class="features">
-        <div class="feature">
+  <div class="features" role="list">
+  <div class="feature" role="listitem">
           <h3>Glosarios por especialidad</h3>
           <p>Informática, electrónica, mecánica, civil y telecom con traducción, pronunciación y ejemplos.</p>
         </div>
-        <div class="feature">
+  <div class="feature" role="listitem">
           <h3>Lecciones en micro‑formatos</h3>
           <p>Estudia en 5‑10 minutos: tarjetas, audios y quizzes con retroalimentación inmediata.</p>
         </div>
-        <div class="feature">
+  <div class="feature" role="listitem">
           <h3>Preparación académica</h3>
           <p>Lecturas técnicas, resúmenes y preguntas tipo examen, ideales para papers y presentaciones.</p>
         </div>
-        <div class="feature">
+  <div class="feature" role="listitem">
           <h3>Pronunciación y listening</h3>
           <p>Audios con acento estándar y modo “repeat‑slow” para mejorar el oído técnico.</p>
         </div>
-        <div class="feature">
+  <div class="feature" role="listitem">
           <h3>Rutas de aprendizaje</h3>
           <p>Tracks por semestre/curso para que avances con objetivos medibles.</p>
         </div>
-        <div class="feature">
+  <div class="feature" role="listitem">
           <h3>Modo sin conexión</h3>
           <p>Descarga módulos para estudiar en el bus o cuando no tengas datos.</p>
         </div>
@@ -216,40 +252,40 @@
   </section>
 
   <!-- SHOWCASE -->
-  <section id="muestras" class="section">
+  <section id="muestras" class="section fade-in" aria-label="Vista previa de la app">
     <div class="container">
       <p class="kicker">Vista previa</p>
       <h2 style="margin:.2rem 0 1rem">Pantallas de la app</h2>
-      <div class="showcase">
-        <div class="shot"><img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop" alt="Pantalla 1"/></div>
-        <div class="shot"><img src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop" alt="Pantalla 2"/></div>
-        <div class="shot"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop" alt="Pantalla 3"/></div>
+      <div class="showcase" role="list">
+        <div class="shot" role="listitem"><img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop" alt="Vista previa de la pantalla de inicio de la app TechEnglish"/></div>
+        <div class="shot" role="listitem"><img src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop" alt="Vista previa de la pantalla de lecciones de la app TechEnglish"/></div>
+        <div class="shot" role="listitem"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop" alt="Vista previa de la pantalla de glosario de la app TechEnglish"/></div>
       </div>
     </div>
   </section>
 
   <!-- TESTIMONIALS / CTA -->
-  <section class="section">
+  <section class="section fade-in" aria-label="Testimonios y descarga">
     <div class="container">
-      <div class="testimonials">
-        <div class="quote">“Por fin un curso que enseña <b>lo que leo en papers</b> y manuales. Las frases son súper aplicables.” — <i>Ana, Ing. de Sistemas</i></div>
-        <div class="quote">“Me ayudó a presentar mi proyecto en inglés. Las rutas por especialidad son un golazo.” — <i>Diego, Ing. Electrónica</i></div>
+      <div class="testimonials" role="list">
+        <div class="quote" role="listitem">“Por fin un curso que enseña <b>lo que leo en papers</b> y manuales. Las frases son súper aplicables.” — <i>Ana, Ing. de Sistemas</i></div>
+        <div class="quote" role="listitem">“Me ayudó a presentar mi proyecto en inglés. Las rutas por especialidad son un golazo.” — <i>Diego, Ing. Electrónica</i></div>
       </div>
-      <div class="cta" id="descargar" style="margin-top:20px">
+  <div class="cta" id="descargar" style="margin-top:20px" role="region" aria-label="Descarga de la app">
         <div>
           <strong>Descarga (muy pronto)</strong>
           <p style="margin:.2rem 0;color:#c3cde0">Disponible primero en Android. Déjanos tu correo para avisarte.</p>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <a class="btn primary" href="#">Google Play</a>
-          <a class="btn ghost" href="#">App Store</a>
+          <a class="btn primary" href="#" aria-label="Descargar en Google Play">Google Play</a>
+          <a class="btn ghost" href="#" aria-label="Descargar en App Store">App Store</a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section id="faq" class="section">
+  <section id="faq" class="section fade-in" aria-label="Preguntas frecuentes">
     <div class="container">
       <p class="kicker">Preguntas frecuentes</p>
       <h2 style="margin:.2rem 0 1rem">FAQ</h2>
@@ -268,17 +304,31 @@
     </div>
   </section>
 
-  <footer>
+  </main>
+  <footer role="contentinfo" class="fade-in">
     <div class="container" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px">
       <p>© <span id="year"></span> TechEnglish. Hecho para estudiantes de ingeniería.</p>
       <div style="display:flex;gap:8px;align-items:center">
-        <a class="chip" href="mailto:contacto.learnbasic@gmail.com">✉️ Contacto</a>
-        <a class="chip" href="#">Política de privacidad</a>
+        <a class="chip" href="mailto:contacto.learnbasic@gmail.com" aria-label="Enviar correo a contacto">✉️ Contacto</a>
+        <a class="chip" href="#" aria-label="Ver política de privacidad">Política de privacidad</a>
       </div>
     </div>
   </footer>
 
   <script>
+    // Animación de aparición al hacer scroll
+    function revealOnScroll() {
+      const elements = document.querySelectorAll('.fade-in');
+      const windowHeight = window.innerHeight;
+      elements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < windowHeight - 60) {
+          el.classList.add('visible');
+        }
+      });
+    }
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('DOMContentLoaded', revealOnScroll);
     const yearEl = document.getElementById('year');
     yearEl.textContent = new Date().getFullYear();
 
@@ -306,6 +356,7 @@
     function toast(msg){
       const t = document.createElement('div');
       t.textContent = msg;
+      t.className = 'toast-anim';
       t.style.position = 'fixed';
       t.style.bottom = '20px';
       t.style.right = '20px';
@@ -314,6 +365,7 @@
       t.style.color = '#fff';
       t.style.borderRadius = '12px';
       t.style.boxShadow = 'var(--shadow-2)';
+      t.style.zIndex = 9999;
       document.body.appendChild(t);
       setTimeout(()=> t.remove(), 2600);
     }

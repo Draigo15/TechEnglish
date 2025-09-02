@@ -167,6 +167,31 @@
   html[data-theme='light'] .testimonial footer{color:#5b6675}
   /* avatar ajuste ya definido anteriormente, se evita duplicado */
   html[data-theme='light'] .cta{background:linear-gradient(90deg,rgba(11,99,246,.10),rgba(35,197,94,.10));border-color:#bcd4f5}
+  /* Light theme navbar to pure white */
+  html[data-theme='light'] header.nav{background:rgba(255,255,255,.85);border-bottom:1px solid #e2e8f0}
+  html[data-theme='light'] .menu a{color:#415167}
+  html[data-theme='light'] .menu a:hover{background:#e6eef7;color:#0b63f6}
+  html[data-theme='light'] .brand .logo{box-shadow:0 4px 14px rgba(0,0,0,.08)}
+  /* Light theme phone demo */
+  html[data-theme='light'] .phone{background:linear-gradient(180deg,#ffffff 0%,#eef3f9 100%);border:10px solid #e4ecf5;box-shadow:0 8px 28px rgba(0,0,0,.12)}
+  html[data-theme='light'] .phone-header{background:#f0f5fb;color:#475569;border-bottom:1px solid #d9e4ef}
+  html[data-theme='light'] .lesson .card{background:#f6f9fc;border:1px solid #d9e5f0}
+  html[data-theme='light'] .lesson .card p,
+  html[data-theme='light'] .lesson .card ul li{color:#4a5565 !important}
+  html[data-theme='light'] .lesson .card h4{color:#1d2430}
+  html[data-theme='light'] .lesson .btn.primary{box-shadow:0 0 0 1px #0b63f620,0 8px 22px -4px rgba(11,99,246,.35)}
+  /* High priority contrast fixes (hero card & inputs) */
+  html[data-theme='light'] .hero-card .lesson p,
+  html[data-theme='light'] .hero-card .lesson ul li {color:#475569 !important;}
+  html[data-theme='light'] .hero-card .lesson h4 {color:#1d2430}
+  html[data-theme='light'] .hero-card .card strong {color:#1d2430}
+  html[data-theme='light'] .hero-card .btn.ghost {background:#e6eef7;border:1px solid #c2d3e5;color:#1f2733}
+  html[data-theme='light'] .hero-card .btn.ghost:hover {background:#d7e7f3;color:#0f1720}
+  /* Input placeholders */
+  input::placeholder {color:#7d8695;opacity:1}
+  html[data-theme='light'] input::placeholder {color:#708090}
+  /* Focus ring refinement */
+  .btn.primary:focus-visible {box-shadow:0 0 0 3px rgba(11,99,246,.35),var(--shadow-2)}
   html[data-theme='light'] .chip{color:#485568;background:#e6edf7;border-color:#d0dae7}
 
   /* Skip link */

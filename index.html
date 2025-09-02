@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TechEnglish – Inglés técnico para estudiantes de ingeniería</title>
+  <meta name="description" content="Aprende inglés técnico con lecciones cortas, vocabulario de ingeniería, pronunciación y prácticas interactivas. Ideal para estudiantes y profesionales." />
+  <meta property="og:title" content="TechEnglish – Inglés técnico para estudiantes de ingeniería" />
+  <meta property="og:description" content="Lecciones cortas, vocabulario especializado y práctica real para tu carrera." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1200&auto=format&fit=crop" />
+  <meta name="theme-color" content="#0b63f6" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0a0b0f;          /* fondo oscuro elegante */
+      --card:#121521;        /* tarjetas */
+      --muted:#9aa4b2;       /* texto secundario */
+      --text:#eef2ff;        /* texto principal */
+      --brand:#0b63f6;       /* azul principal */
+      --brand-2:#23c55e;     /* verde acento */
+      --ring:rgba(11,99,246,.35);
+      --radius:18px;
+      --shadow:0 10px 25px rgba(0,0,0,.35);
+      --shadow-2:0 30px 80px rgba(11,99,246,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:linear-gradient(180deg,#0a0b0f 0%,#0a0b0f 40%,#0b1022 100%);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    .btn{display:inline-flex;align-items:center;gap:.6rem;border:1px solid transparent;padding:.9rem 1.2rem;border-radius:14px;font-weight:600;transition:all .2s ease;cursor:pointer}
+    .btn.primary{background:var(--brand);box-shadow:var(--shadow-2)}
+    .btn.primary:hover{transform:translateY(-1px);filter:saturate(1.1)}
+    .btn.ghost{border-color:#2a3245;background:#111524}
+    .chip{display:inline-flex;align-items:center;gap:.5rem;background:#0f1322;border:1px solid #20263a;color:#b7c1d6;border-radius:999px;padding:.35rem .7rem;font-size:.78rem}
+    header.nav{
+      position:sticky;top:0;z-index:20;background:rgba(10,11,15,.6);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06)
+    }
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .brand{display:flex;align-items:center;gap:.6rem;font-weight:800}
+    .brand .logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--brand),#6ea8ff);display:grid;place-items:center;box-shadow:0 10px 30px rgba(11,99,246,.35)}
+    .brand .logo span{font-size:18px;font-weight:900}
+    .menu{display:flex;gap:1rem}
+    .menu a{padding:.5rem .7rem;border-radius:10px;color:#c8d3e7}
+    .menu a:hover{background:#12182b}
+    .mobile-toggle{display:none}
+
+    /* HERO */
+    .hero{padding:80px 0 30px}
+    .hero-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:36px;align-items:center}
+    .headline{font-size:clamp(30px,5vw,54px);line-height:1.05;margin:12px 0 8px;font-weight:800;letter-spacing:-.02em}
+    .subhead{font-size:clamp(15px,2.2vw,18px);color:var(--muted);max-width:58ch}
+    .hero-card{background:radial-gradient(1200px 300px at 10% -10%,rgba(11,99,246,.25),transparent),linear-gradient(180deg,#111528 0%,#0e1223 100%);border:1px solid #1a2140;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative}
+    .phone{aspect-ratio:9/19;border-radius:28px;border:10px solid #0b0f1f;overflow:hidden;background:#0f1325;box-shadow:0 15px 45px rgba(0,0,0,.5)}
+    .phone-header{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;color:#b9c6e6;font-size:12px;background:#0b1230;border-bottom:1px solid #1a2248}
+    .lesson{padding:18px}
+    .lesson h4{margin:0 0 8px}
+    .card{background:#0f1427;border:1px solid #1c2546;border-radius:14px;padding:14px}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+    /* FEATURES */
+    .section{padding:70px 0}
+    .kicker{text-transform:uppercase;letter-spacing:.16em;color:#8ea6d6;font-weight:700;font-size:.78rem}
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
+    .feature{background:linear-gradient(180deg,#0f1427,#0b1121);border:1px solid #1b2242;border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+    .feature h3{margin:.4rem 0}
+    .feature p{color:#aeb9cf}
+
+    /* CTA Banner */
+    .cta{margin-top:20px;background:linear-gradient(90deg,rgba(11,99,246,.2),rgba(35,197,94,.2));border:1px solid #223a7a;border-radius:18px;padding:18px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+
+    /* Showcase */
+    .showcase{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .shot{border-radius:16px;overflow:hidden;border:1px solid #1b2242;background:#0f1426}
+
+    /* Testimonials */
+    .testimonials{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .quote{background:#0f1427;border:1px solid #1b2242;border-radius:16px;padding:18px;color:#cbd4e6}
+
+    /* FAQ */
+    details{background:#0f1426;border:1px solid #1b2242;border-radius:14px;padding:14px}
+    details+details{margin-top:10px}
+    summary{cursor:pointer;font-weight:600}
+
+    footer{border-top:1px solid rgba(255,255,255,.08);padding:30px 0 40px;color:#aeb9cf}
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero{padding:64px 0 24px}
+      .hero-grid{grid-template-columns:1fr;gap:22px}
+      .features{grid-template-columns:1fr 1fr}
+      .testimonials{grid-template-columns:1fr}
+      .showcase{grid-template-columns:1fr 1fr}
+      .menu{display:none}
+      .mobile-toggle{display:inline-flex}
+    }
+    @media (max-width: 600px){
+      .features,.showcase{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#">
+        <div class="logo"><span>TE</span></div>
+        <span>TechEnglish</span>
+      </a>
+      <nav class="menu" id="menu">
+        <a href="#caracteristicas">Características</a>
+        <a href="#muestras">Muestras</a>
+        <a href="#faq">FAQ</a>
+        <a href="#descargar">Descargar</a>
+      </nav>
+      <button class="mobile-toggle btn ghost" aria-label="Abrir menú" onclick="toggleMenu()">☰</button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="chip">Inglés técnico para ingeniería</span>
+        <h1 class="headline">Aprende vocabulario de tu carrera, con lecciones cortas y prácticas reales.</h1>
+        <p class="subhead">Domina términos de programación, electrónica, mecánica, civil y telecom. Practica pronunciación, escucha audios y resuelve ejercicios tipo examen.</p>
+        <div style="display:flex;gap:10px;margin-top:14px">
+          <a href="#descargar" class="btn primary">📲 Próximamente en Android</a>
+          <a href="#features" class="btn ghost">Ver cómo funciona</a>
+        </div>
+        <div class="cta" style="margin-top:18px">
+          <div>
+            <strong>¿Quieres acceso anticipado?</strong>
+            <p style="margin:.2rem 0;color:#c3cde0">Únete a la lista de espera y recibe 3 módulos gratis al lanzamiento.</p>
+          </div>
+          <form class="waitlist" onsubmit="return joinWaitlist(event)">
+            <input type="email" placeholder="tu@email.com" required style="background:#0c1122;border:1px solid #243055;color:#cfe2ff;padding:.8rem 1rem;border-radius:12px;outline:none;min-width:240px" />
+            <button class="btn primary" type="submit">Unirme</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="phone">
+          <div class="phone-header">
+            <span>TechEnglish</span>
+            <span>· 12:40</span>
+          </div>
+          <div class="lesson">
+            <div class="card">
+              <div class="grid-2">
+                <div>
+                  <h4 style="margin:0">Word of the day</h4>
+                  <p style="margin:.4rem 0 .2rem;color:#aeb9cf">"Server"</p>
+                  <ul style="margin:0;padding-left:18px;color:#cbd6f0">
+                    <li>ES: Servidor</li>
+                    <li>IPA: /ˈsɜːrvər/</li>
+                    <li>Field: Software/Networking</li>
+                  </ul>
+                </div>
+                <div>
+                  <audio controls style="width:100%">
+                    <source src="" type="audio/mpeg" />
+                  </audio>
+                  <button class="btn ghost" style="width:100%;margin-top:8px">Practicar</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" style="margin-top:12px">
+              <strong>Frase útil</strong>
+              <p style="margin:.2rem 0;color:#aeb9cf">The <b>server</b> is down due to a <b>network outage</b>.</p>
+              <button class="btn primary" style="width:100%">Quiz rápido</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="caracteristicas" class="section">
+    <div class="container">
+      <p class="kicker">¿Qué incluye?</p>
+      <h2 style="margin:.2rem 0 1rem">Todo lo que necesitas para el inglés de tu carrera</h2>
+      <div class="features">
+        <div class="feature">
+          <h3>Glosarios por especialidad</h3>
+          <p>Informática, electrónica, mecánica, civil y telecom con traducción, pronunciación y ejemplos.</p>
+        </div>
+        <div class="feature">
+          <h3>Lecciones en micro‑formatos</h3>
+          <p>Estudia en 5‑10 minutos: tarjetas, audios y quizzes con retroalimentación inmediata.</p>
+        </div>
+        <div class="feature">
+          <h3>Preparación académica</h3>
+          <p>Lecturas técnicas, resúmenes y preguntas tipo examen, ideales para papers y presentaciones.</p>
+        </div>
+        <div class="feature">
+          <h3>Pronunciación y listening</h3>
+          <p>Audios con acento estándar y modo “repeat‑slow” para mejorar el oído técnico.</p>
+        </div>
+        <div class="feature">
+          <h3>Rutas de aprendizaje</h3>
+          <p>Tracks por semestre/curso para que avances con objetivos medibles.</p>
+        </div>
+        <div class="feature">
+          <h3>Modo sin conexión</h3>
+          <p>Descarga módulos para estudiar en el bus o cuando no tengas datos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOWCASE -->
+  <section id="muestras" class="section">
+    <div class="container">
+      <p class="kicker">Vista previa</p>
+      <h2 style="margin:.2rem 0 1rem">Pantallas de la app</h2>
+      <div class="showcase">
+        <div class="shot"><img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop" alt="Pantalla 1"/></div>
+        <div class="shot"><img src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop" alt="Pantalla 2"/></div>
+        <div class="shot"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop" alt="Pantalla 3"/></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS / CTA -->
+  <section class="section">
+    <div class="container">
+      <div class="testimonials">
+        <div class="quote">“Por fin un curso que enseña <b>lo que leo en papers</b> y manuales. Las frases son súper aplicables.” — <i>Ana, Ing. de Sistemas</i></div>
+        <div class="quote">“Me ayudó a presentar mi proyecto en inglés. Las rutas por especialidad son un golazo.” — <i>Diego, Ing. Electrónica</i></div>
+      </div>
+      <div class="cta" id="descargar" style="margin-top:20px">
+        <div>
+          <strong>Descarga (muy pronto)</strong>
+          <p style="margin:.2rem 0;color:#c3cde0">Disponible primero en Android. Déjanos tu correo para avisarte.</p>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a class="btn primary" href="#">Google Play</a>
+          <a class="btn ghost" href="#">App Store</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="section">
+    <div class="container">
+      <p class="kicker">Preguntas frecuentes</p>
+      <h2 style="margin:.2rem 0 1rem">FAQ</h2>
+      <details>
+        <summary>¿La app es gratis?</summary>
+        <p>Habrá un plan gratuito con módulos base y un plan Pro con rutas avanzadas y modo sin conexión.</p>
+      </details>
+      <details>
+        <summary>¿Qué niveles cubre?</summary>
+        <p>Desde A2/B1 (intermedio) hasta B2/C1 para términos especializados.</p>
+      </details>
+      <details>
+        <summary>¿Incluye pronunciación?</summary>
+        <p>Sí, con audios nativos y práctica de repetición lenta.</p>
+      </details>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px">
+      <p>© <span id="year"></span> TechEnglish. Hecho para estudiantes de ingeniería.</p>
+      <div style="display:flex;gap:8px;align-items:center">
+        <a class="chip" href="mailto:contacto.learnbasic@gmail.com">✉️ Contacto</a>
+        <a class="chip" href="#">Política de privacidad</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const yearEl = document.getElementById('year');
+    yearEl.textContent = new Date().getFullYear();
+
+    function toggleMenu(){
+      const m = document.getElementById('menu');
+      m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+      if(m.style.display === 'flex'){ m.style.flexDirection = 'column'; m.style.gap = '8px'; }
+    }
+
+    function joinWaitlist(e){
+      e.preventDefault();
+      const input = e.target.querySelector('input[type="email"]');
+      const email = input.value.trim();
+      if(!email) return false;
+      // Sin backend: almacenamos localmente y mostramos confirmación
+      const key = 'techenglish_waitlist';
+      const list = JSON.parse(localStorage.getItem(key) || '[]');
+      if(!list.includes(email)) list.push(email);
+      localStorage.setItem(key, JSON.stringify(list));
+      input.value = '';
+      toast('¡Te uniste a la lista de espera!');
+      return false;
+    }
+
+    function toast(msg){
+      const t = document.createElement('div');
+      t.textContent = msg;
+      t.style.position = 'fixed';
+      t.style.bottom = '20px';
+      t.style.right = '20px';
+      t.style.padding = '12px 16px';
+      t.style.background = 'rgba(11,99,246,.95)';
+      t.style.color = '#fff';
+      t.style.borderRadius = '12px';
+      t.style.boxShadow = 'var(--shadow-2)';
+      document.body.appendChild(t);
+      setTimeout(()=> t.remove(), 2600);
+    }
+  </script>
+</body>
+</html>

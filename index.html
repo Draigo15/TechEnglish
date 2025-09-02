@@ -16,19 +16,43 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#0a0b0f;          /* fondo oscuro elegante */
-      --card:#121521;        /* tarjetas */
-      --muted:#9aa4b2;       /* texto secundario */
-      --text:#eef2ff;        /* texto principal */
-      --brand:#0b63f6;       /* azul principal */
-      --brand-2:#23c55e;     /* verde acento */
+      /* Dark theme (default) */
+      --bg:#0a0b0f;
+      --bg-alt:#0b1022;
+      --card:#121521;
+      --muted:#9aa4b2;
+      --text:#eef2ff;
+      --text-invert:#10141c;
+      --brand:#0b63f6;
+      --brand-grad:#0b63f6,#6ea8ff;
+      --brand-2:#23c55e;
       --ring:rgba(11,99,246,.35);
       --radius:18px;
       --shadow:0 10px 25px rgba(0,0,0,.35);
       --shadow-2:0 30px 80px rgba(11,99,246,.35);
+      --focus:#23c55e;
+      --progress:linear-gradient(90deg,#0b63f6,#23c55e);
+      --transition: .25s cubic-bezier(.4,1.4,.6,1);
+    }
+    html[data-theme='light']{
+      --bg:#f5f7fb;
+      --bg-alt:#ffffff;
+      --card:#ffffff;
+      --muted:#5a6475;
+      --text:#1d2430;
+      --text-invert:#fff;
+      --brand:#0b63f6;
+      --brand-grad:#0b63f6,#338fff;
+      --brand-2:#16a34a;
+      --ring:rgba(11,99,246,.25);
+      --shadow:0 4px 16px rgba(0,0,0,.08);
+      --shadow-2:0 20px 48px rgba(11,99,246,.25);
+      --focus:#0b63f6;
+      --progress:linear-gradient(90deg,#0b63f6,#16a34a);
     }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:linear-gradient(180deg,#0a0b0f 0%,#0a0b0f 40%,#0b1022 100%);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  html,body{margin:0;padding:0;background:linear-gradient(180deg,var(--bg) 0%,var(--bg) 40%,var(--bg-alt) 100%);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;scroll-behavior:smooth}
+  body.theme-transition *{transition:background-color var(--transition),color var(--transition),border-color var(--transition)}
     img{max-width:100%;display:block}
     a{color:inherit;text-decoration:none}
     .container{max-width:1100px;margin:0 auto;padding:0 20px}
@@ -43,19 +67,21 @@
     }
     .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
     .brand{display:flex;align-items:center;gap:.6rem;font-weight:800}
-    .brand .logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--brand),#6ea8ff);display:grid;place-items:center;box-shadow:0 10px 30px rgba(11,99,246,.35)}
+  .brand .logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--brand-grad));display:grid;place-items:center;box-shadow:0 10px 30px rgba(11,99,246,.35)}
     .brand .logo span{font-size:18px;font-weight:900}
-    .menu{display:flex;gap:1rem}
+  .menu{display:flex;gap:1rem;transition:transform .4s ease,opacity .4s ease}
     .menu a{padding:.5rem .7rem;border-radius:10px;color:#c8d3e7}
     .menu a:hover{background:#12182b}
-    .mobile-toggle{display:none}
+  .mobile-toggle{display:none;transition:transform .25s cubic-bezier(.4,1.4,.6,1);}
+  .mobile-toggle:active {transform: scale(1.15) rotate(12deg);}
 
     /* HERO */
     .hero{padding:80px 0 30px}
     .hero-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:36px;align-items:center}
     .headline{font-size:clamp(30px,5vw,54px);line-height:1.05;margin:12px 0 8px;font-weight:800;letter-spacing:-.02em}
     .subhead{font-size:clamp(15px,2.2vw,18px);color:var(--muted);max-width:58ch}
-    .hero-card{background:radial-gradient(1200px 300px at 10% -10%,rgba(11,99,246,.25),transparent),linear-gradient(180deg,#111528 0%,#0e1223 100%);border:1px solid #1a2140;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative}
+  .hero-card{background:radial-gradient(1200px 300px at 10% -10%,rgba(11,99,246,.25),transparent),linear-gradient(180deg,#111528 0%,#0e1223 100%);border:1px solid #1a2140;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .hero-card:before{content:"";position:absolute;inset:0;background:radial-gradient(800px 400px at 90% 120%,rgba(35,197,94,.12),transparent);pointer-events:none;mix-blend-mode:overlay;}
     .phone{aspect-ratio:9/19;border-radius:28px;border:10px solid #0b0f1f;overflow:hidden;background:#0f1325;box-shadow:0 15px 45px rgba(0,0,0,.5)}
     .phone-header{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;color:#b9c6e6;font-size:12px;background:#0b1230;border-bottom:1px solid #1a2248}
     .lesson{padding:18px}
@@ -66,8 +92,10 @@
     /* FEATURES */
     .section{padding:70px 0}
     .kicker{text-transform:uppercase;letter-spacing:.16em;color:#8ea6d6;font-weight:700;font-size:.78rem}
-    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
-    .feature{background:linear-gradient(180deg,#0f1427,#0b1121);border:1px solid #1b2242;border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+  .features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px;list-style:none;padding:0}
+  .feature{background:linear-gradient(180deg,#0f1427,#0b1121);border:1px solid #1b2242;border-radius:16px;padding:18px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .feature:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(11,99,246,.12),transparent 60%);opacity:0;transition:opacity .4s}
+  .feature:hover:before{opacity:1}
     .feature h3{margin:.4rem 0}
     .feature p{color:#aeb9cf}
 
@@ -75,7 +103,7 @@
     .cta{margin-top:20px;background:linear-gradient(90deg,rgba(11,99,246,.2),rgba(35,197,94,.2));border:1px solid #223a7a;border-radius:18px;padding:18px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 
     /* Showcase */
-    .showcase{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .showcase{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;list-style:none;padding:0}
     .shot{border-radius:16px;overflow:hidden;border:1px solid #1b2242;background:#0f1426;transition:transform .35s cubic-bezier(.4,1.4,.6,1), box-shadow .35s;}
     .shot:hover, .shot:focus-within {
       transform: scale(1.045) translateY(-6px);
@@ -103,7 +131,27 @@
     }
 
     /* Testimonials */
-    .testimonials{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .testimonials{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  /* Scroll progress bar */
+  #scrollProgress{position:fixed;top:0;left:0;height:4px;width:0;background:var(--progress);z-index:999;box-shadow:0 0 0 1px rgba(0,0,0,.1),0 4px 10px rgba(0,0,0,.2);transition:width .15s linear}
+
+  /* Off-canvas menu (mobile) */
+  .offcanvas{position:fixed;top:0;right:0;bottom:0;width:250px;background:#0f1424;border-left:1px solid #1d2742;display:flex;flex-direction:column;padding:70px 20px 20px;gap:6px;transform:translateX(100%);transition:transform .45s cubic-bezier(.65,.05,.36,1);backdrop-filter:blur(12px);z-index:300}
+  .offcanvas.open{transform:translateX(0)}
+  .offcanvas a{padding:.7rem 1rem;border-radius:10px;color:#d5deee}
+  .offcanvas a:hover{background:#182034}
+
+  /* Focus visible */
+  :focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+
+  /* Light theme adjustments for some blocks */
+  html[data-theme='light'] .hero-card{background:linear-gradient(180deg,#ffffff 0%,#e8eef7 100%);border-color:#d9e2f2}
+  html[data-theme='light'] .feature{background:linear-gradient(180deg,#ffffff,#f1f5fb);border-color:#d9e4f2}
+  html[data-theme='light'] .quote{background:#ffffff;border-color:#d9e4f2;color:#1d2430}
+
+  /* Skip link */
+  .skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}
+  .skip-link:focus{left:20px;top:10px;width:auto;height:auto;background:var(--brand);color:#fff;padding:.7rem 1rem;border-radius:10px;z-index:1000}
     .quote{background:#0f1427;border:1px solid #1b2242;border-radius:16px;padding:18px;color:#cbd4e6}
 
     /* FAQ */
@@ -133,12 +181,34 @@
       .menu{display:none}
       .mobile-toggle{display:inline-flex}
     }
+
+  /* Testimonios grid */
+  .testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:30px}
+  .testimonial{background:linear-gradient(180deg,#0f1427,#0b1121);border:1px solid #1b2242;border-radius:16px;padding:18px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform .5s cubic-bezier(.4,1.4,.6,1)}
+  .testimonial:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(11,99,246,.18),transparent 70%);opacity:0;transition:opacity .5s}
+  .testimonial:hover:before{opacity:.9}
+  .testimonial:hover{transform:translateY(-6px)}
+  .testimonial blockquote{margin:0;font-style:italic;line-height:1.45;color:#d5deea}
+  .testimonial footer{margin-top:.8rem;font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+  .testimonial .head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  .testimonial .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--brand-grad));display:flex;align-items:center;justify-content:center;font-weight:600;color:var(--text-invert);font-size:1rem;box-shadow:0 4px 12px rgba(0,0,0,.35)}
+  html[data-theme='light'] .testimonial .avatar{color:#fff}
+
+    /* Botón volver arriba */
+    #backToTopBtn {
+      display: none; position: fixed; bottom: 32px; right: 32px; z-index: 1000;
+      background: var(--brand); color: #fff; border: none; border-radius: 50%; width: 48px; height: 48px;
+      box-shadow: 0 6px 24px rgba(11,99,246,.18); font-size: 1.7rem; cursor: pointer; transition: background .2s, transform .2s;
+    }
+    #backToTopBtn:hover { background: var(--brand-2); transform: scale(1.08); }
     @media (max-width: 600px){
       .features,.showcase{grid-template-columns:1fr}
     }
   </style>
 </head>
-<body>
+  <body>
+  <a href="#contenido" class="skip-link">Saltar al contenido</a>
+  <div id="scrollProgress" aria-hidden="true"></div>
   <header class="nav" role="banner">
     <div class="container nav-inner">
       <a class="brand" href="#" aria-label="Inicio TechEnglish">
@@ -151,13 +221,16 @@
         <a href="#faq">FAQ</a>
         <a href="#descargar">Descargar</a>
       </nav>
-      <button class="mobile-toggle btn ghost" aria-label="Abrir menú de navegación" onclick="toggleMenu()">☰</button>
+      <div style="display:flex;align-items:center;gap:8px">
+        <button class="btn ghost" id="themeToggle" type="button" aria-label="Cambiar tema claro/oscuro">🌓</button>
+        <button class="mobile-toggle btn ghost" aria-label="Abrir menú de navegación" onclick="toggleMenu()">☰</button>
+      </div>
     </div>
   </header>
 
   <main>
   <!-- HERO -->
-  <section class="hero" aria-label="Sección principal, presentación">
+  <section class="hero" aria-label="Sección principal, presentación" id="contenido">
     <div class="container hero-grid">
       <div>
         <span class="chip">Inglés técnico para ingeniería</span>
@@ -167,14 +240,19 @@
           <a href="#descargar" class="btn primary">📲 Próximamente en Android</a>
           <a href="#features" class="btn ghost">Ver cómo funciona</a>
         </div>
-  <div class="cta" style="margin-top:18px" role="region" aria-label="Acceso anticipado">
+  <div class="cta" style="margin-top:18px" aria-label="Acceso anticipado">
           <div>
             <strong>¿Quieres acceso anticipado?</strong>
             <p style="margin:.2rem 0;color:#c3cde0">Únete a la lista de espera y recibe 3 módulos gratis al lanzamiento.</p>
           </div>
           <form class="waitlist" onsubmit="return joinWaitlist(event)" aria-label="Formulario lista de espera">
-            <input type="email" placeholder="tu@email.com" required aria-label="Correo electrónico" style="background:#0c1122;border:1px solid #243055;color:#cfe2ff;padding:.8rem 1rem;border-radius:12px;outline:none;min-width:240px" />
-            <button class="btn primary" type="submit" aria-label="Unirme a la lista de espera">Unirme</button>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start">
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <input id="waitlistEmail" type="email" placeholder="tu@email.com" required aria-label="Correo electrónico" style="background:#0c1122;border:1px solid #243055;color:#cfe2ff;padding:.8rem 1rem;border-radius:12px;outline:none;min-width:240px" />
+                <small id="emailError" style="color:#ff6b6b;display:none">Ingresa un correo válido.</small>
+              </div>
+              <button class="btn primary" type="submit" aria-label="Unirme a la lista de espera">Unirme</button>
+            </div>
           </form>
         </div>
       </div>
@@ -222,32 +300,32 @@
     <div class="container">
       <p class="kicker">¿Qué incluye?</p>
       <h2 style="margin:.2rem 0 1rem">Todo lo que necesitas para el inglés de tu carrera</h2>
-  <div class="features" role="list">
-  <div class="feature" role="listitem">
+      <ul class="features">
+        <li class="feature">
           <h3>Glosarios por especialidad</h3>
           <p>Informática, electrónica, mecánica, civil y telecom con traducción, pronunciación y ejemplos.</p>
-        </div>
-  <div class="feature" role="listitem">
+        </li>
+        <li class="feature">
           <h3>Lecciones en micro‑formatos</h3>
           <p>Estudia en 5‑10 minutos: tarjetas, audios y quizzes con retroalimentación inmediata.</p>
-        </div>
-  <div class="feature" role="listitem">
+        </li>
+        <li class="feature">
           <h3>Preparación académica</h3>
           <p>Lecturas técnicas, resúmenes y preguntas tipo examen, ideales para papers y presentaciones.</p>
-        </div>
-  <div class="feature" role="listitem">
+        </li>
+        <li class="feature">
           <h3>Pronunciación y listening</h3>
           <p>Audios con acento estándar y modo “repeat‑slow” para mejorar el oído técnico.</p>
-        </div>
-  <div class="feature" role="listitem">
+        </li>
+        <li class="feature">
           <h3>Rutas de aprendizaje</h3>
           <p>Tracks por semestre/curso para que avances con objetivos medibles.</p>
-        </div>
-  <div class="feature" role="listitem">
+        </li>
+        <li class="feature">
           <h3>Modo sin conexión</h3>
           <p>Descarga módulos para estudiar en el bus o cuando no tengas datos.</p>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
   </section>
 
@@ -256,22 +334,41 @@
     <div class="container">
       <p class="kicker">Vista previa</p>
       <h2 style="margin:.2rem 0 1rem">Pantallas de la app</h2>
-      <div class="showcase" role="list">
-        <div class="shot" role="listitem"><img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop" alt="Vista previa de la pantalla de inicio de la app TechEnglish"/></div>
-        <div class="shot" role="listitem"><img src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop" alt="Vista previa de la pantalla de lecciones de la app TechEnglish"/></div>
-        <div class="shot" role="listitem"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop" alt="Vista previa de la pantalla de glosario de la app TechEnglish"/></div>
-      </div>
+      <ul class="showcase">
+        <li class="shot"><img loading="lazy" src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop" alt="Vista previa de la pantalla de inicio de la app TechEnglish"/></li>
+        <li class="shot"><img loading="lazy" src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=800&auto=format&fit=crop" alt="Vista previa de la pantalla de lecciones de la app TechEnglish"/></li>
+        <li class="shot"><img loading="lazy" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop" alt="Vista previa de la pantalla de glosario de la app TechEnglish"/></li>
+        <li class="shot"><img loading="lazy" src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=800&auto=format&fit=crop" alt="Pantalla de módulo de pronunciación de la app TechEnglish"/></li>
+        <li class="shot"><img loading="lazy" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800&auto=format&fit=crop" alt="Pantalla de progreso y rutas de aprendizaje"/></li>
+        <li class="shot"><img loading="lazy" src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=800&auto=format&fit=crop" alt="Pantalla de quiz interactivo técnico"/></li>
+      </ul>
     </div>
   </section>
 
   <!-- TESTIMONIALS / CTA -->
   <section class="section fade-in" aria-label="Testimonios y descarga">
     <div class="container">
-      <div class="testimonials" role="list">
-        <div class="quote" role="listitem">“Por fin un curso que enseña <b>lo que leo en papers</b> y manuales. Las frases son súper aplicables.” — <i>Ana, Ing. de Sistemas</i></div>
-        <div class="quote" role="listitem">“Me ayudó a presentar mi proyecto en inglés. Las rutas por especialidad son un golazo.” — <i>Diego, Ing. Electrónica</i></div>
+      <p class="kicker">Testimonios</p>
+      <h2 style="margin:.2rem 0 .4rem">Lo que dicen estudiantes y profesionales</h2>
+      <p id="socialProof" class="subhead" style="margin:.2rem 0 1.2rem;font-size:.9rem;color:var(--muted)">Más de <strong><span id="waitlistCount">120</span></strong> estudiantes ya en la lista.</p>
+      <div class="testimonials-grid" aria-label="Testimonios de usuarios">
+        <article class="testimonial fade-in">
+          <div class="head"><div class="avatar" aria-hidden="true">A</div><div style="font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)">Ana · Ing. de Sistemas</div></div>
+          <blockquote>“Por fin un curso que enseña <b>lo que leo en papers</b> y manuales. Las frases son súper aplicables.”</blockquote>
+          <footer>Ana · Ing. de Sistemas</footer>
+        </article>
+        <article class="testimonial fade-in">
+          <div class="head"><div class="avatar" aria-hidden="true">D</div><div style="font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)">Diego · Ing. Electrónica</div></div>
+          <blockquote>“Me ayudó a presentar mi proyecto en inglés. Las rutas por especialidad son un golazo.”</blockquote>
+          <footer>Diego · Ing. Electrónica</footer>
+        </article>
+        <article class="testimonial fade-in">
+          <div class="head"><div class="avatar" aria-hidden="true">L</div><div style="font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)">Laura · Ing. Industrial</div></div>
+            <blockquote>“El enfoque en vocabulario específico me ahorró tiempo preparando un paper técnico.”</blockquote>
+          <footer>Laura · Ing. Industrial</footer>
+        </article>
       </div>
-  <div class="cta" id="descargar" style="margin-top:20px" role="region" aria-label="Descarga de la app">
+  <div class="cta" id="descargar" style="margin-top:20px" aria-label="Descarga de la app">
         <div>
           <strong>Descarga (muy pronto)</strong>
           <p style="margin:.2rem 0;color:#c3cde0">Disponible primero en Android. Déjanos tu correo para avisarte.</p>
@@ -315,7 +412,35 @@
     </div>
   </footer>
 
+  <button id="backToTopBtn" aria-label="Volver arriba" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+  <div id="toast-root" aria-live="polite" aria-atomic="true" style="position:fixed;bottom:10px;right:10px;display:flex;flex-direction:column;gap:8px;z-index:9999"></div>
+  <nav class="offcanvas" id="offcanvasMenu" aria-label="Menú móvil">
+    <a href="#caracteristicas" onclick="closeOffcanvas()">Características</a>
+    <a href="#muestras" onclick="closeOffcanvas()">Muestras</a>
+    <a href="#faq" onclick="closeOffcanvas()">FAQ</a>
+    <a href="#descargar" onclick="closeOffcanvas()">Descargar</a>
+  </nav>
   <script>
+    // Carrusel de testimonios
+    let testimonialIndex = 0;
+    function moveTestimonial(dir) {
+      const track = document.getElementById('testimonialsTrack');
+      const slides = track.children;
+      testimonialIndex += dir;
+      if (testimonialIndex < 0) testimonialIndex = slides.length - 1;
+      if (testimonialIndex >= slides.length) testimonialIndex = 0;
+      track.style.transform = `translateX(-${testimonialIndex * 100}%)`;
+    }
+
+    // Botón volver arriba
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 300) {
+        backToTopBtn.style.display = 'block';
+      } else {
+        backToTopBtn.style.display = 'none';
+      }
+    });
     // Animación de aparición al hacer scroll
     function revealOnScroll() {
       const elements = document.querySelectorAll('.fade-in');
@@ -333,42 +458,88 @@
     yearEl.textContent = new Date().getFullYear();
 
     function toggleMenu(){
-      const m = document.getElementById('menu');
-      m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
-      if(m.style.display === 'flex'){ m.style.flexDirection = 'column'; m.style.gap = '8px'; }
+      const off = document.getElementById('offcanvasMenu');
+      off.classList.toggle('open');
+    }
+    function closeOffcanvas(){
+      document.getElementById('offcanvasMenu').classList.remove('open');
     }
 
     function joinWaitlist(e){
       e.preventDefault();
-      const input = e.target.querySelector('input[type="email"]');
+      const input = document.getElementById('waitlistEmail');
+      const error = document.getElementById('emailError');
       const email = input.value.trim();
-      if(!email) return false;
-      // Sin backend: almacenamos localmente y mostramos confirmación
+      const emailValid = /^[\w.!#$%&'*+/=?`{|}~-]+@[\w-]+\.[\w.-]{2,}$/i.test(email);
+      if(!emailValid){
+        error.style.display='block';
+        input.setAttribute('aria-invalid','true');
+        return; // aborta sin devolver valor fijo
+      }
+      error.style.display='none';
+      input.removeAttribute('aria-invalid');
       const key = 'techenglish_waitlist';
       const list = JSON.parse(localStorage.getItem(key) || '[]');
-      if(!list.includes(email)) list.push(email);
+      let added = false;
+      if(!list.includes(email)) { list.push(email); added = true; }
       localStorage.setItem(key, JSON.stringify(list));
       input.value = '';
-      toast('¡Te uniste a la lista de espera!');
-      return false;
+      updateWaitlistCount(list.length);
+      toast(added ? '¡Te uniste a la lista de espera! 🎉' : 'Ya estabas en la lista.');
+    }
+
+    function updateWaitlistCount(n){
+      const el = document.getElementById('waitlistCount');
+      if(el){ el.textContent = n; }
     }
 
     function toast(msg){
+      const root = document.getElementById('toast-root');
       const t = document.createElement('div');
       t.textContent = msg;
       t.className = 'toast-anim';
-      t.style.position = 'fixed';
-      t.style.bottom = '20px';
-      t.style.right = '20px';
       t.style.padding = '12px 16px';
       t.style.background = 'rgba(11,99,246,.95)';
       t.style.color = '#fff';
       t.style.borderRadius = '12px';
       t.style.boxShadow = 'var(--shadow-2)';
-      t.style.zIndex = 9999;
-      document.body.appendChild(t);
-      setTimeout(()=> t.remove(), 2600);
+      t.style.fontSize = '.9rem';
+      root.appendChild(t);
+      setTimeout(()=> t.remove(), 3000);
     }
+
+    // Theme toggle
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const storedTheme = localStorage.getItem('techenglish_theme');
+    if(storedTheme){
+      document.documentElement.setAttribute('data-theme', storedTheme);
+    } else if(window.matchMedia('(prefers-color-scheme: light)').matches){
+      document.documentElement.setAttribute('data-theme','light');
+    }
+    themeToggleBtn.addEventListener('click', ()=>{
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.body.classList.add('theme-transition');
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('techenglish_theme', next);
+      setTimeout(()=> document.body.classList.remove('theme-transition'), 400);
+    });
+
+    // Scroll progress
+    function updateScrollProgress(){
+      const docH = document.documentElement.scrollHeight - window.innerHeight;
+      const sc = window.scrollY;
+      const pct = docH ? (sc/docH)*100 : 0;
+      document.getElementById('scrollProgress').style.width = pct + '%';
+    }
+    window.addEventListener('scroll', updateScrollProgress);
+    window.addEventListener('DOMContentLoaded', updateScrollProgress);
+    // Inicializar contador de lista
+    window.addEventListener('DOMContentLoaded', ()=>{
+      const key = 'techenglish_waitlist';
+      const list = JSON.parse(localStorage.getItem(key) || '[]');
+      updateWaitlistCount(list.length || 120);
+    });
   </script>
 </body>
 </html>

@@ -61,6 +61,11 @@
   .btn.primary:hover{transform:translateY(-2px) scale(1.04);filter:saturate(1.1);box-shadow:0 12px 32px rgba(11,99,246,.45)}
   .btn.ghost:hover{transform:translateY(-1px) scale(1.03);background:#181e2e;box-shadow:0 4px 16px rgba(35,197,94,.12)}
     .btn.ghost{border-color:#2a3245;background:#111524}
+  /* Light theme overrides for ghost buttons */
+  html[data-theme='light'] .btn.ghost{background:#e6eef7;border:1px solid #c2d3e5;color:#1f2733}
+  html[data-theme='light'] .btn.ghost:hover{background:#d7e7f3;color:#0f1720;box-shadow:0 4px 14px rgba(11,99,246,.15)}
+  html[data-theme='light'] .cta .btn.ghost{background:#e4ecf5;border-color:#c0d2e2;color:#1d2733}
+  html[data-theme='light'] .cta .btn.ghost:hover{background:#d4e3f1}
     .chip{display:inline-flex;align-items:center;gap:.5rem;background:#0f1322;border:1px solid #20263a;color:#b7c1d6;border-radius:999px;padding:.35rem .7rem;font-size:.78rem}
     header.nav{
       position:sticky;top:0;z-index:20;background:rgba(10,11,15,.6);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06)
@@ -97,7 +102,7 @@
   .feature:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(11,99,246,.12),transparent 60%);opacity:0;transition:opacity .4s}
   .feature:hover:before{opacity:1}
     .feature h3{margin:.4rem 0}
-    .feature p{color:#aeb9cf}
+  .feature p{color:var(--muted)}
 
     /* CTA Banner */
     .cta{margin-top:20px;background:linear-gradient(90deg,rgba(11,99,246,.2),rgba(35,197,94,.2));border:1px solid #223a7a;border-radius:18px;padding:18px;display:flex;align-items:center;justify-content:space-between;gap:16px}
@@ -148,6 +153,21 @@
   html[data-theme='light'] .hero-card{background:linear-gradient(180deg,#ffffff 0%,#e8eef7 100%);border-color:#d9e2f2}
   html[data-theme='light'] .feature{background:linear-gradient(180deg,#ffffff,#f1f5fb);border-color:#d9e4f2}
   html[data-theme='light'] .quote{background:#ffffff;border-color:#d9e4f2;color:#1d2430}
+  /* Light theme contrast fixes */
+  html[data-theme='light'] .cta p,
+  html[data-theme='light'] .hero .subhead,
+  html[data-theme='light'] [style*='#c3cde0'],
+  html[data-theme='light'] [style*='#aeb9cf'],
+  html[data-theme='light'] [style*='#cbd6f0'],
+  html[data-theme='light'] [style*='#cbd4e6'],
+  html[data-theme='light'] [style*='#cfe2ff']{color:#475569 !important;}
+  html[data-theme='light'] .feature p{color:#4a5565}
+  html[data-theme='light'] .testimonial{background:linear-gradient(180deg,#ffffff,#f1f5fa);border:1px solid #d8e2ee}
+  html[data-theme='light'] .testimonial blockquote{color:#1f2933}
+  html[data-theme='light'] .testimonial footer{color:#5b6675}
+  /* avatar ajuste ya definido anteriormente, se evita duplicado */
+  html[data-theme='light'] .cta{background:linear-gradient(90deg,rgba(11,99,246,.10),rgba(35,197,94,.10));border-color:#bcd4f5}
+  html[data-theme='light'] .chip{color:#485568;background:#e6edf7;border-color:#d0dae7}
 
   /* Skip link */
   .skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}
@@ -158,8 +178,24 @@
     details{background:#0f1426;border:1px solid #1b2242;border-radius:14px;padding:14px}
     details+details{margin-top:10px}
     summary{cursor:pointer;font-weight:600}
+  /* Light theme FAQ contrast */
+  html[data-theme='light'] details{background:#f1f5fa;border:1px solid #d3dee9;color:#1d2733}
+  html[data-theme='light'] summary{color:#1d2733}
+  html[data-theme='light'] details p{color:#384656}
 
-    footer{border-top:1px solid rgba(255,255,255,.08);padding:30px 0 40px;color:#aeb9cf}
+  footer{border-top:1px solid rgba(255,255,255,.08);padding:50px 0 40px;color:#aeb9cf;font-size:.9rem}
+  .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:30px;margin-bottom:30px}
+  .footer-col h4{margin:0 0 .8rem;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:#8ea6d6}
+  .footer-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.45rem}
+  .footer-col a{color:#b9c7dc;font-size:.9rem}
+  .footer-col a:hover{color:#fff}
+  .footer-brand{display:flex;align-items:center;gap:.6rem;font-weight:700;font-size:1rem;margin-bottom:.6rem}
+  .social-links{display:flex;gap:10px;margin-top:.6rem}
+  .social-links a{width:34px;height:34px;display:grid;place-items:center;background:#121828;border:1px solid #1e2740;border-radius:10px;color:#c9d3e3;font-size:1rem;transition:background .25s,transform .25s}
+  .social-links a:hover{background:var(--brand);color:#fff;transform:translateY(-3px)}
+  html[data-theme='light'] footer{border-color:#d9e2f2}
+  html[data-theme='light'] .social-links a{background:#eef3f9;border-color:#d4dee9;color:#4a5664}
+  html[data-theme='light'] .social-links a:hover{background:var(--brand);color:#fff}
 
     /* Animación para el toast */
     .toast-anim {
@@ -403,11 +439,59 @@
 
   </main>
   <footer role="contentinfo" class="fade-in">
-    <div class="container" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px">
-      <p>© <span id="year"></span> TechEnglish. Hecho para estudiantes de ingeniería.</p>
-      <div style="display:flex;gap:8px;align-items:center">
-        <a class="chip" href="mailto:contacto.learnbasic@gmail.com" aria-label="Enviar correo a contacto">✉️ Contacto</a>
-        <a class="chip" href="#" aria-label="Ver política de privacidad">Política de privacidad</a>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-brand">
+            <div class="logo" aria-hidden="true" style="width:42px;height:42px">TE</div>
+            <span>TechEnglish</span>
+          </div>
+          <p style="margin:0 0 .8rem;max-width:260px;line-height:1.4;color:var(--muted)">Inglés técnico enfocado en vocabulario real de ingeniería: rápido, aplicable y medible.</p>
+          <div class="social-links" aria-label="Redes sociales">
+            <a href="#" aria-label="Instagram" title="Instagram"></a>
+            <a href="#" aria-label="LinkedIn" title="LinkedIn">in</a>
+            <a href="#" aria-label="GitHub" title="GitHub">GH</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Producto</h4>
+          <ul>
+            <li><a href="#caracteristicas">Características</a></li>
+            <li><a href="#muestras">Pantallas</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#descargar">Descarga</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Recursos</h4>
+          <ul>
+            <li><a href="#" aria-label="Ver roadmap (en preparación)">Roadmap</a></li>
+            <li><a href="#" aria-label="Blog próximamente">Blog (próx.)</a></li>
+            <li><a href="#" aria-label="Guía de pronunciación próximamente">Guías</a></li>
+            <li><a href="#" aria-label="Centro de ayuda próximamente">Ayuda</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#" aria-label="Política de privacidad">Privacidad</a></li>
+            <li><a href="#" aria-label="Términos y condiciones">Términos</a></li>
+            <li><a href="#" aria-label="Licencias de contenido">Licencias</a></li>
+            <li><a href="mailto:contacto.learnbasic@gmail.com" aria-label="Enviar correo a soporte">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Actualizaciones</h4>
+          <p style="margin:0 0 .6rem;color:var(--muted)">Recibe novedades y avisos de lanzamiento.</p>
+          <form onsubmit="return footerSubscribe(event)" aria-label="Formulario de suscripción" style="display:flex;flex-direction:column;gap:8px;max-width:260px">
+            <input type="email" id="footerEmail" required placeholder="tu@email.com" style="background:#0c1122;border:1px solid #243055;color:var(--text);padding:.7rem .9rem;border-radius:10px;outline:none" aria-label="Correo de suscripción" />
+            <button class="btn primary" type="submit" style="justify-content:center">Suscribirme</button>
+          </form>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;font-size:.78rem;color:var(--muted);border-top:1px solid rgba(255,255,255,.08);padding-top:18px">
+        <p style="margin:0">© <span id="year"></span> TechEnglish. Todos los derechos reservados.</p>
+        <p style="margin:0">Hecho con ❤️ para estudiantes de ingeniería.</p>
       </div>
     </div>
   </footer>
@@ -491,6 +575,23 @@
     function updateWaitlistCount(n){
       const el = document.getElementById('waitlistCount');
       if(el){ el.textContent = n; }
+    }
+
+    function footerSubscribe(e){
+      e.preventDefault();
+      const emailInput = document.getElementById('footerEmail');
+      const email = emailInput.value.trim();
+      if(!/^[\w.!#$%&'*+/=?`{|}~-]+@[\w-]+\.[\w.-]{2,}$/i.test(email)){
+        toast('Correo inválido');
+        return false;
+      }
+      const key = 'techenglish_subs';
+      const subs = JSON.parse(localStorage.getItem(key) || '[]');
+      if(!subs.includes(email)) subs.push(email);
+      localStorage.setItem(key, JSON.stringify(subs));
+      emailInput.value='';
+      toast('Suscripción registrada ✅');
+      return false;
     }
 
     function toast(msg){
